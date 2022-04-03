@@ -40,6 +40,9 @@ void SpawnGroup::AddObject(uint32 dbGuid, uint32 entry)
 void SpawnGroup::RemoveObject(WorldObject* wo)
 {
     m_objects.erase(wo->GetDbGuid());
+
+    if (!m_map.IsDungeon() && m_objects.empty() && m_entry.HasChancedSpawns)
+        m_chosenSpawns.clear();
 }
 
 uint32 SpawnGroup::GetGuidEntry(uint32 dbGuid) const
@@ -105,6 +108,9 @@ void SpawnGroup::Spawn(bool force)
         return;
 
     if (m_objects.size() >= m_entry.MaxCount || !IsWorldstateConditionSatisfied())
+        return;
+
+    if (m_entry.HasChancedSpawns && m_chosenSpawns.size() >= m_entry.MaxCount)
         return;
 
     std::vector<SpawnGroupDbGuids const*> eligibleGuids;
@@ -180,6 +186,27 @@ void SpawnGroup::Spawn(bool force)
     {
         uint32 dbGuid = (*itr)->DbGuid;
         uint32 entry = 0;
+        if (m_entry.HasChancedSpawns)
+        {
+            if ((*itr)->Chance)
+            {
+                auto spawnItr = m_chosenSpawns.find(dbGuid);
+                bool spawn = true;
+                if (spawnItr == m_chosenSpawns.end())
+                {
+                    spawn = roll_chance_i((*itr)->Chance);
+                    m_chosenSpawns[dbGuid] = spawn;
+                }
+                else
+                    spawn = spawnItr->second;
+
+                if (!spawn)
+                    continue;
+            }
+            else // filling redundant entries when a group has chanced spawns for optimization so we can stop at start
+                m_chosenSpawns[dbGuid] = true;
+        }
+
         // creatures pick random entry on first spawn in dungeons - else always pick random entry
         if (GetObjectTypeId() == TYPEID_UNIT)
         {

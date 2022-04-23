@@ -2799,6 +2799,31 @@ MeleeHitOutcome Unit::RollMeleeOutcomeAgainst(const Unit* pVictim, WeaponAttackT
 
     Die<UnitCombatDieSide, UNIT_COMBAT_DIE_HIT, NUM_UNIT_COMBAT_DIE_SIDES> die;
     die.set(UNIT_COMBAT_DIE_MISS, CalculateEffectiveMissChance(pVictim, attType));
+
+    enum 
+    {
+       NPC_KALECGOS = 24850,
+       NPC_SATHROVARR = 24892,
+       NPC_BRUTALLUS = 24882,
+       NPC_FELMYST = 25038,
+       NPC_FELMYST_TRASH = 25268,
+       NPC_SACROCINGLE = 25165,
+       NPC_ALYTHESS = 25166,
+    };
+
+    switch (this->GetEntry())
+    {
+        case NPC_KALECGOS:
+        case NPC_SATHROVARR:
+        case NPC_BRUTALLUS:
+        case NPC_FELMYST:
+        case NPC_FELMYST_TRASH:
+        case NPC_SACROCINGLE:
+        case NPC_ALYTHESS:
+            die.chance[UNIT_COMBAT_DIE_MISS] -= 5;
+            break;
+    }
+
     if (pVictim->GetTypeId() == TYPEID_PLAYER && !pVictim->IsStandState() && CanCrit(attType))
     {
         die.chance[UNIT_COMBAT_DIE_CRIT] = 10000;

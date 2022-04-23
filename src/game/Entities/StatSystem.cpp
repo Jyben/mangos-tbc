@@ -567,7 +567,8 @@ void Player::UpdateDodgePercentageByPassingValue(float amount)
     m_modDodgeChance = value;
     // Set UI display value: modify value from defense skill against same level target
     value += (int32(GetDefenseSkillValue()) - int32(GetSkillMaxForLevel())) * 0.04f;
-    value -= amount;
+    // Add passed custom amount
+    value += amount;
     SetStatFloatValue(PLAYER_DODGE_PERCENTAGE, std::max(0.0f, std::min(value, 100.0f)));
 }
 

@@ -123,12 +123,14 @@ void instance_sunwell_plateau::OnPlayerEnter(Player* pPlayer)
         }
     }
 
+    // Add custom radiance - dodge part
     int32 amount = -20;
     pPlayer->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
 }
 
 void instance_sunwell_plateau::OnPlayerLeave(Player* pPlayer)
 {
+    // Remove custom radiance - dodge part
     int32 amount = 20;
     pPlayer->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
 }
@@ -378,6 +380,24 @@ void instance_sunwell_plateau::SetData(uint32 type, uint32 data)
                 SpawnMuru();
                 static_cast<DungeonMap*>(instance)->PermBindAllPlayers();
                 static_cast<DungeonMap*>(instance)->GetPersistanceState()->UpdateEncounterState(ENCOUNTER_CREDIT_SCRIPT, DB_ENCOUNTER_TWINS);
+
+                // Remove custom radiance - dodge part
+                Group* group = nullptr;
+                int32 amount = 20;
+
+                if (Player* player = instance->GetPlayerInMap(false, false)) 
+                {
+                    if (Group* group = player->GetGroup()) 
+                    {
+                        for (GroupReference* pRef = group->GetFirstMember(); pRef != nullptr; pRef = pRef->next())
+                        {
+                            if (Player* pMember = pRef->getSource())
+                            {
+                                pMember->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
+                            }
+                        }
+                    }
+                }
             }
             if (data == FAIL)
             {

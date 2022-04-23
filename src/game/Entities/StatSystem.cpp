@@ -553,25 +553,6 @@ void Player::UpdateDodgePercentage()
     SetStatFloatValue(PLAYER_DODGE_PERCENTAGE, std::max(0.0f, std::min(value, 100.0f)));
 }
 
-void Player::UpdateDodgePercentageByPassingValue(float amount) 
-{
-    // Base dodge
-    float value = (getClass() < MAX_CLASSES) ? PLAYER_BASE_DODGE[getClass()] : 0.0f;
-    // Dodge from agility
-    value += GetDodgeFromAgility(GetStat(STAT_AGILITY));
-    // Dodge from SPELL_AURA_MOD_DODGE_PERCENT aura
-    value += GetTotalAuraModifier(SPELL_AURA_MOD_DODGE_PERCENT);
-    // Dodge from rating
-    value += GetRatingBonusValue(CR_DODGE);
-    // Set current dodge chance
-    m_modDodgeChance = value;
-    // Set UI display value: modify value from defense skill against same level target
-    value += (int32(GetDefenseSkillValue()) - int32(GetSkillMaxForLevel())) * 0.04f;
-    // Add passed custom amount
-    value += amount;
-    SetStatFloatValue(PLAYER_DODGE_PERCENTAGE, std::max(0.0f, std::min(value, 100.0f)));
-}
-
 void Player::UpdateSpellCritChance(uint32 school)
 {
     float crit = 0.0f;

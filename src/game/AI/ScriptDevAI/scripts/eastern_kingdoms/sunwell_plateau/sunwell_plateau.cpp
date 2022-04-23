@@ -123,7 +123,7 @@ void instance_sunwell_plateau::OnPlayerEnter(Player* pPlayer)
         }
     }
 
-    pPlayer->UpdateDodgePercentageByPassingValue(-20.0f);
+    pPlayer->CastCustomSpell(player, 15185, -20, -20, nullptr, TRIGGERED_OLD_TRIGGERED);
 }
 
 void instance_sunwell_plateau::OnCreatureCreate(Creature* creature)
@@ -274,7 +274,7 @@ void instance_sunwell_plateau::OnPlayerDeath(Player* player)
 
 void instance_sunwell_plateau::OnPlayerResurrect(Player * player)
 {
-    player->UpdateDodgePercentageByPassingValue(-20.0f);
+    // player->CastCustomSpell(player, 15185, -20, -20, nullptr, TRIGGERED_OLD_TRIGGERED);
 }
 
 void instance_sunwell_plateau::OnObjectCreate(GameObject* go)

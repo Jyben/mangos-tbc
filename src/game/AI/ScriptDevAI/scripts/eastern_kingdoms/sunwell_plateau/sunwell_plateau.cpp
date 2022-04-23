@@ -122,6 +122,8 @@ void instance_sunwell_plateau::OnPlayerEnter(Player* pPlayer)
                 SpawnKiljaeden();
         }
     }
+
+    pPlayer->UpdateDodgePercentageByPassingValue(-20.0f);
 }
 
 void instance_sunwell_plateau::OnCreatureCreate(Creature* creature)
@@ -268,6 +270,11 @@ void instance_sunwell_plateau::OnPlayerDeath(Player* player)
 {
     if (GetData(TYPE_KALECGOS) == IN_PROGRESS)
         player->RemoveAurasDueToSpell(SPELL_SPECTRAL_REALM_AURA);
+}
+
+void instance_sunwell_plateau::OnPlayerResurrect(Player * player)
+{
+    player->UpdateDodgePercentageByPassingValue(-20.0f);
 }
 
 void instance_sunwell_plateau::OnObjectCreate(GameObject* go)

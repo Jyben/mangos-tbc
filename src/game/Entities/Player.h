@@ -1713,6 +1713,7 @@ class Player : public Unit
         void UpdateAllCritPercentages();
         void UpdateParryPercentage();
         void UpdateDodgePercentage();
+        void UpdateDodgePercentageByPassingValue(float amount);
         void UpdateMeleeHitChances();
         void UpdateRangedHitChances();
         void UpdateSpellHitChances();

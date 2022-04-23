@@ -123,12 +123,14 @@ void instance_sunwell_plateau::OnPlayerEnter(Player* pPlayer)
         }
     }
 
-    pPlayer->CastCustomSpell(pPlayer, 15185, -20, -20, nullptr, TRIGGERED_OLD_TRIGGERED);
+    int32 amount = -20;
+    pPlayer->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
 }
 
 void instance_sunwell_plateau::OnPlayerLeave(Player* pPlayer)
 {
-    pPlayer->CastCustomSpell(pPlayer, 15185, 20, 20, nullptr, TRIGGERED_OLD_TRIGGERED);
+    int32 amount = 20;
+    pPlayer->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
 }
 
 void instance_sunwell_plateau::OnCreatureCreate(Creature* creature)

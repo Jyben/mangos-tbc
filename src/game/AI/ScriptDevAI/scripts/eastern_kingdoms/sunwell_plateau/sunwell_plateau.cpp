@@ -279,11 +279,6 @@ void instance_sunwell_plateau::OnPlayerDeath(Player* player)
         player->RemoveAurasDueToSpell(SPELL_SPECTRAL_REALM_AURA);
 }
 
-void instance_sunwell_plateau::OnPlayerResurrect(Player * player)
-{
-    // player->CastCustomSpell(player, 15185, -20, -20, nullptr, TRIGGERED_OLD_TRIGGERED);
-}
-
 void instance_sunwell_plateau::OnObjectCreate(GameObject* go)
 {
     switch (go->GetEntry())

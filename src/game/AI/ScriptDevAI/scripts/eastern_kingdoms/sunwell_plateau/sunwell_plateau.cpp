@@ -385,7 +385,7 @@ void instance_sunwell_plateau::SetData(uint32 type, uint32 data)
                 Group* group = nullptr;
                 int32 amount = 20;
 
-                if (Player* player = instance->GetPlayerInMap(false, false)) 
+                if (Player* player = GetPlayerInMap(false, false)) 
                 {
                     if (Group* group = player->GetGroup()) 
                     {

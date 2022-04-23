@@ -158,6 +158,7 @@ class instance_sunwell_plateau : public ScriptedInstance, private DialogueHelper
         bool IsEncounterInProgress() const override;
 
         void OnPlayerEnter(Player* pPlayer) override;
+        void OnPlayerLeave(Player* pPlayer) override;
         void OnObjectCreate(GameObject* pGo) override;
         void OnCreatureCreate(Creature* pCreature) override;
         void OnCreatureRespawn(Creature* creature) override;

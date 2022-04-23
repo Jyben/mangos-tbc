@@ -90,6 +90,7 @@ enum
     POINT_MOVE_ICE_BLOCK            = 2,
     POINT_MOVE_ENCAPSULATE          = 3,
     POINT_MOVE_FEL_FIREBALL         = 4,
+    SPELL_SUNWELL_RADIANCE          = 45769,
 };
 
 static const DialogueEntry aIntroDialogue[] =
@@ -159,6 +160,7 @@ struct boss_brutallusAI : public CombatAI, private DialogueHelper
 
         DoCastSpellIfCan(nullptr, SPELL_DUAL_WEILD_PASSIVE, CAST_TRIGGERED | CAST_AURA_NOT_PRESENT);
         DoCastSpellIfCan(nullptr, SPELL_TAUNT_HIT_CHANCE, CAST_TRIGGERED | CAST_AURA_NOT_PRESENT);
+        DoCastSpellIfCan(nullptr, SPELL_SUNWELL_RADIANCE, CAST_TRIGGERED | CAST_AURA_NOT_PRESENT);
     }
 
     void Aggro(Unit* who) override

@@ -393,7 +393,7 @@ void instance_sunwell_plateau::SetData(uint32 type, uint32 data)
                         {
                             if (Player* pMember = pRef->getSource())
                             {
-                                pMember->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
+                                pMember->CastCustomSpell(pMember, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
                             }
                         }
                     }

@@ -134,8 +134,11 @@ void instance_sunwell_plateau::OnPlayerEnter(Player* pPlayer)
 void instance_sunwell_plateau::OnPlayerLeave(Player* pPlayer)
 {
     // Remove custom radiance - dodge part
-    int32 amount = 20;
-    pPlayer->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
+    if (m_auiEncounter[TYPE_EREDAR_TWINS] != DONE)
+    {
+        int32 amount = 20;
+        pPlayer->CastCustomSpell(pPlayer, 15185, &amount, &amount, nullptr, TRIGGERED_OLD_TRIGGERED);
+    }
 }
 
 void instance_sunwell_plateau::OnCreatureCreate(Creature* creature)
